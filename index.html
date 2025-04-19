@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <h2 style="text-align: center; font-weight: bold;">STUDENT FORM</h2>
+
+  <div style="display: flex; justify-content: center;">
+    <form id="studentForm">
+      <table >
+        <tr>
+          <td class="border border-black"><b>Name</b></td>
+          <td class="border border-black"><input type="text" id="name" required></td>
+        </tr>
+        <tr>
+          <td class="border border-black"><b>Age</b></td>
+          <td class="border border-black"><input type="number" id="age" required></td>
+        </tr>
+        <tr>
+          <td class="border border-black"><b>Gender</b></td>
+          <td class="border border-black">
+            <input type="radio" name="gender" value="Male" required> Male
+            <input type="radio" name="gender" value="Female"> FeMale
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-black"><b>Course</b></td>
+          <td class="border border-black">
+            <select id="course">
+              <option>JavaScript</option>
+              <option>PYTHON</option>
+              <option>React</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-black"><b>E-mail</b></td>
+          <td class="border border-black"><input type="email" id="email" required></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="border border-black text-center">
+            <button type="submit" class="w-full bg-green-200 hover:bg-green-300 border border-black">Save</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="border border-black border-collapse" id="studentTable">
+      <thead>
+        <tr>
+          <th class="border border-black">NAME</th>
+          <th class="border border-black">AGE</th>
+          <th class="border border-black">COURSE</th>
+          <th class="border border-black">GENDER</th>
+          <th class="border border-black">EMAIL</th>
+          <th class="border border-black">ACTION</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById('studentForm');
+    const tableBody = document.getElementById('tableBody');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const course = document.getElementById('course').value;
+      const email = document.getElementById('email').value;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="border border-black">${name}</td>
+        <td class="border border-black">${age}</td>
+        <td class="border border-black">${course}</td>
+        <td class="border border-black">${gender}</td>
+        <td class="border border-black">${email}</td>
+        <td class="border border-black">
+          <button onclick="deleteRow(this)" class="bg-red-600 text-white px-2 border border-black">Delete</button>
+        </td>
+      `;
+
+      tableBody.appendChild(row);
+      form.reset();
+    });
+
+    function deleteRow(btn) {
+      const row = btn.parentNode.parentNode;
+      row.remove();
+    }
+  </script>
+
+</body>
+</html>
